@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Software engineer CV — experience, education, and projects."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <nav class="nav" aria-label="Primary">
+        <a class="logo" href="#top"><span class="logo-dot"></span> CV</a>
+        <div class="nav-links">
+          <a href="#about">About</a>
+          <a href="#experience">Experience</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section id="top" class="hero">
+        <div class="hero-blob hero-blob-1" aria-hidden="true"></div>
+        <div class="hero-blob hero-blob-2" aria-hidden="true"></div>
+        <div class="hero-inner">
+          <p class="eyebrow">Portfolio</p>
+          <h1 id="hero-name" class="hero-name">Your Name</h1>
+          <p id="hero-title" class="hero-role">Software Engineer</p>
+          <p id="hero-tagline" class="hero-tagline"></p>
+          <div id="hero-meta" class="hero-meta"></div>
+          <div id="hero-links" class="hero-actions"></div>
+        </div>
+      </section>
+
+      <div class="content-wrap">
+        <section id="about" class="section">
+          <h2 class="section-title"><span class="section-accent about-accent"></span> About</h2>
+          <p id="about-text" class="lead"></p>
+        </section>
+
+        <section id="education" class="section">
+          <h2 class="section-title"><span class="section-accent edu-accent"></span> Education</h2>
+          <div id="education-list" class="stack"></div>
+        </section>
+
+        <section id="experience" class="section">
+          <h2 class="section-title"><span class="section-accent exp-accent"></span> Experience</h2>
+          <div id="experience-list" class="stack"></div>
+        </section>
+
+        <section id="skills" class="section">
+          <h2 class="section-title"><span class="section-accent skills-accent"></span> Skills</h2>
+          <div id="skills-grid" class="skills-grid"></div>
+        </section>
+
+        <section id="projects" class="section">
+          <h2 class="section-title"><span class="section-accent proj-accent"></span> Projects</h2>
+          <div id="projects-list" class="grid-projects"></div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        <span id="footer-name"></span> · <span id="year"></span>
+      </p>
+    </footer>
+
+    <script src="content.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
