@@ -6,6 +6,7 @@
   --border: rgba(255, 255, 255, 0.08);
   --font: "DM Sans", system-ui, sans-serif;
   --mono: "JetBrains Mono", ui-monospace, monospace;
+  --header-offset: 4.5rem;
 
   --coral: #ff6b6b;
   --amber: #ffc857;
@@ -27,6 +28,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: var(--header-offset);
 }
 
 body {
@@ -89,10 +91,51 @@ body {
   box-shadow: 0 0 12px var(--violet);
 }
 
+.nav-end {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 1rem 1.5rem;
+}
+
 .nav-links {
   display: flex;
   flex-wrap: wrap;
   gap: 0.25rem 1.25rem;
+}
+
+.lang-switch {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+}
+
+.lang-sep {
+  color: var(--text-muted);
+  opacity: 0.5;
+  user-select: none;
+}
+
+.lang-btn {
+  background: none;
+  border: none;
+  padding: 0.2rem 0.15rem;
+  font: inherit;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.lang-btn:hover {
+  color: var(--sky);
+}
+
+.lang-btn.is-active {
+  color: var(--text);
+  font-weight: 600;
 }
 
 .nav-links a {
@@ -240,6 +283,7 @@ body {
 
 .section {
   margin-bottom: 3.5rem;
+  scroll-margin-top: var(--header-offset);
 }
 
 .section-title {

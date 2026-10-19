@@ -1,3 +1,11 @@
+const LANG_STORAGE_KEY = "cv-lang";
+const SUPPORTED_LANGS = ["en", "de"];
+
+function getStoredLang() {
+  const stored = localStorage.getItem(LANG_STORAGE_KEY);
+  return SUPPORTED_LANGS.includes(stored) ? stored : "en";
+}
+
 function el(tag, className, text) {
   const node = document.createElement(tag);
   if (className) node.className = className;
@@ -13,8 +21,49 @@ function link(href, label, className) {
   return a;
 }
 
-function render(cv) {
+function setText(id, text) {
+  const node = document.getElementById(id);
+  if (node) node.textContent = text;
+}
+
+function updateLangSwitcher(lang) {
+  document.querySelectorAll(".lang-btn").forEach((btn) => {
+    const active = btn.dataset.lang === lang;
+    btn.classList.toggle("is-active", active);
+    btn.setAttribute("aria-pressed", active ? "true" : "false");
+  });
+}
+
+function render(lang) {
+  const bundle = window.CV_I18N?.[lang];
+  if (!bundle) {
+    console.error(`Missing CV_I18N.${lang} — check content.js`);
+    return;
+  }
+
+  const { ui, cv } = bundle;
+
+  document.documentElement.lang = lang;
   document.title = `${cv.name} — ${cv.title}`;
+
+  const metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc) metaDesc.setAttribute("content", ui.metaDescription);
+
+  setText("skip-link-text", ui.skipToContent);
+  setText("logo-text", ui.logo);
+  setText("nav-about", ui.nav.about);
+  setText("nav-experience", ui.nav.experience);
+  setText("nav-skills", ui.nav.skills);
+  setText("nav-projects", ui.nav.projects);
+  setText("hero-eyebrow", ui.eyebrow);
+  setText("section-about", ui.sections.about);
+  setText("section-education", ui.sections.education);
+  setText("section-experience", ui.sections.experience);
+  setText("section-skills", ui.sections.skills);
+  setText("section-projects", ui.sections.projects);
+
+  const langSwitch = document.querySelector(".lang-switch");
+  if (langSwitch) langSwitch.setAttribute("aria-label", ui.langAria);
 
   const heroName = document.getElementById("hero-name");
   const heroTitle = document.getElementById("hero-title");
@@ -32,7 +81,7 @@ function render(cv) {
   );
 
   heroLinks.replaceChildren(
-    link(`mailto:${cv.email}`, "Email", "btn btn-primary"),
+    link(`mailto:${cv.email}`, ui.email, "btn btn-primary"),
     link(cv.links.github, "GitHub", "btn btn-ghost"),
     link(cv.links.linkedin, "LinkedIn", "btn btn-ghost")
   );
@@ -64,11 +113,7 @@ function render(cv) {
       card.append(
         head,
         el("p", "card-sub", `${job.company} · ${job.location}`),
-        el(
-          "ul",
-          "bullet-list",
-          null
-        )
+        el("ul", "bullet-list", null)
       );
       const list = card.querySelector(".bullet-list");
       job.highlights.forEach((h) => list.append(el("li", null, h)));
@@ -98,7 +143,7 @@ function render(cv) {
         el("h3", "card-title", p.name),
         el("p", "card-body", p.description),
         pills,
-        link(p.link, "View project →", "card-link")
+        link(p.link, ui.viewProject, "card-link")
       );
       return card;
     })
@@ -106,12 +151,40 @@ function render(cv) {
 
   document.getElementById("footer-name").textContent = cv.name;
   document.getElementById("year").textContent = String(new Date().getFullYear());
+
+  updateLangSwitcher(lang);
+  localStorage.setItem(LANG_STORAGE_KEY, lang);
+}
+
+function setupLangSwitcher() {
+  document.querySelectorAll(".lang-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const lang = btn.dataset.lang;
+      if (!SUPPORTED_LANGS.includes(lang)) return;
+      render(lang);
+    });
+  });
+}
+
+function setupNavScroll() {
+  document.querySelectorAll('.nav-links a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener("click", (e) => {
+      const id = anchor.getAttribute("href").slice(1);
+      const target = document.getElementById(id);
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      history.pushState(null, "", `#${id}`);
+    });
+  });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  if (!window.CV) {
-    console.error("Missing window.CV — check content.js");
+  if (!window.CV_I18N) {
+    console.error("Missing window.CV_I18N — check content.js");
     return;
   }
-  render(window.CV);
+  setupLangSwitcher();
+  setupNavScroll();
+  render(getStoredLang());
 });
