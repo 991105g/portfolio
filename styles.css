@@ -17,7 +17,7 @@
 
   --radius: 14px;
   --shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
-  --max: 920px;
+  --page-padding: clamp(1.25rem, 4vw, 3rem);
 }
 
 *,
@@ -29,6 +29,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: var(--header-offset);
+  width: 100%;
 }
 
 body {
@@ -38,6 +39,12 @@ body {
   color: var(--text);
   line-height: 1.6;
   min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+#main {
+  width: 100%;
 }
 
 .skip-link {
@@ -65,9 +72,10 @@ body {
 }
 
 .nav {
-  max-width: calc(var(--max) + 4rem);
-  margin: 0 auto;
-  padding: 0.85rem 1.5rem;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0.85rem var(--page-padding);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -153,7 +161,8 @@ body {
 .hero {
   position: relative;
   overflow: hidden;
-  padding: 4rem 1.5rem 5rem;
+  width: 100%;
+  padding: 4rem var(--page-padding) 5rem;
 }
 
 .hero-blob {
@@ -182,8 +191,9 @@ body {
 
 .hero-inner {
   position: relative;
-  max-width: var(--max);
-  margin: 0 auto;
+  width: 100%;
+  max-width: none;
+  margin: 0;
 }
 
 .eyebrow {
@@ -276,9 +286,10 @@ body {
 }
 
 .content-wrap {
-  max-width: var(--max);
-  margin: 0 auto;
-  padding: 0 1.5rem 4rem;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0 var(--page-padding) 4rem;
 }
 
 .section {
@@ -459,7 +470,8 @@ body {
 
 .site-footer {
   text-align: center;
-  padding: 2rem 1.5rem 3rem;
+  width: 100%;
+  padding: 2rem var(--page-padding) 3rem;
   color: var(--text-muted);
   font-size: 0.9rem;
   border-top: 1px solid var(--border);
