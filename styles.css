@@ -77,9 +77,9 @@ body {
   margin: 0;
   padding: 0.85rem var(--page-padding);
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
+  gap: 0.75rem 1rem;
 }
 
 .logo {
@@ -89,6 +89,7 @@ body {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  margin-right: auto;
 }
 
 .logo-dot {
@@ -99,18 +100,12 @@ body {
   box-shadow: 0 0 12px var(--violet);
 }
 
-.nav-end {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 1rem 1.5rem;
-}
-
 .nav-links {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.25rem 1.25rem;
+  flex: 1 1 auto;
 }
 
 .lang-switch {
@@ -119,6 +114,8 @@ body {
   gap: 0.35rem;
   font-family: var(--mono);
   font-size: 0.8rem;
+  margin-left: auto;
+  flex-shrink: 0;
 }
 
 .lang-sep {
@@ -296,53 +293,79 @@ body {
   max-width: none;
   margin: 0;
   padding: 2.5rem var(--page-padding) 4rem;
+  text-align: center;
 }
 
 .section {
-  margin-bottom: 3.5rem;
+  margin-bottom: 4rem;
   scroll-margin-top: var(--header-offset);
 }
 
 .section-title {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  font-size: 1.35rem;
-  margin: 0 0 1.25rem;
+  margin: 0 auto 1.75rem;
+  text-align: center;
+  font-size: clamp(1.25rem, 2.5vw, 1.45rem);
+  font-weight: 600;
+  color: var(--text);
 }
 
-.section-accent {
-  width: 4px;
-  height: 1.4rem;
-  border-radius: 4px;
+.section-title span {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.5rem;
 }
 
-.about-accent {
-  background: var(--mint);
+.section-title span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  border-radius: 999px;
 }
-.edu-accent {
-  background: var(--amber);
+
+.section--about .section-title span::after {
+  background: #4dffc4;
+  box-shadow: 0 0 10px #3ddc97, 0 0 20px rgba(77, 255, 196, 0.85);
 }
-.exp-accent {
-  background: var(--sky);
+
+.section--education .section-title span::after {
+  background: #ffe066;
+  box-shadow: 0 0 10px #ffc857, 0 0 20px rgba(255, 224, 102, 0.85);
 }
-.skills-accent {
-  background: var(--violet);
+
+.section--experience .section-title span::after {
+  background: #6ee7ff;
+  box-shadow: 0 0 10px #4cc9f0, 0 0 20px rgba(110, 231, 255, 0.85);
 }
-.proj-accent {
-  background: var(--coral);
+
+.section--skills .section-title span::after {
+  background: #c9b5ff;
+  box-shadow: 0 0 10px #a78bfa, 0 0 20px rgba(201, 181, 255, 0.85);
+}
+
+.section--projects .section-title span::after {
+  background: #ff8a8a;
+  box-shadow: 0 0 10px #ff6b6b, 0 0 20px rgba(255, 138, 138, 0.85);
 }
 
 .lead {
   font-size: 1.1rem;
   color: var(--text-muted);
-  margin: 0;
+  margin: 0 auto;
+  max-width: 65ch;
+  text-align: center;
 }
 
 .stack {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 1rem;
+  width: 100%;
+  max-width: 52rem;
+  margin: 0 auto;
 }
 
 .card {
@@ -354,25 +377,29 @@ body {
 }
 
 .card-edu {
-  border-left: 3px solid var(--amber);
+  border-top: 3px solid var(--amber);
+  width: 100%;
 }
 
 .card-exp {
-  border-left: 3px solid var(--sky);
+  border-top: 3px solid var(--sky);
+  width: 100%;
 }
 
 .card-project {
   border-top: 3px solid var(--coral);
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 0.65rem;
+  text-align: center;
 }
 
 .card-head {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
-  justify-content: space-between;
+  justify-content: center;
   gap: 0.5rem;
 }
 
@@ -402,9 +429,12 @@ body {
 }
 
 .bullet-list {
-  margin: 0.75rem 0 0;
-  padding-left: 1.2rem;
+  margin: 0.75rem auto 0;
+  padding-left: 0;
+  list-style-position: inside;
   color: var(--text-muted);
+  text-align: center;
+  max-width: 48ch;
 }
 
 .bullet-list li {
@@ -415,6 +445,9 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1.25rem;
+  max-width: 56rem;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .skill-block {
@@ -428,11 +461,13 @@ body {
   margin: 0 0 0.75rem;
   font-size: 0.95rem;
   color: var(--violet);
+  text-align: center;
 }
 
 .pills {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.45rem;
 }
 
@@ -460,6 +495,9 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1rem;
+  max-width: 56rem;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .card-link {
@@ -483,9 +521,15 @@ body {
   border-top: 1px solid var(--border);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 720px) {
   .nav-links {
+    order: 3;
+    flex-basis: 100%;
     font-size: 0.85rem;
+  }
+
+  .lang-switch {
+    order: 2;
   }
 
   .hero {
